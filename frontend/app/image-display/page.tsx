@@ -22,7 +22,7 @@ export default function DisplayImagePage() {
         const blob = await fetch(imageSrc).then(res => res.blob());
         const formData = new FormData();
         formData.append("image", blob, "upload.png");
-        await fetch("/api/display_image", {
+        await fetch("/api/image-display", {
             method: "POST",
             body: formData,
         });

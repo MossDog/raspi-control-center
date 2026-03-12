@@ -27,10 +27,17 @@ try:
     font18 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 18)
     font35 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 35)
 
-    logging.info("read bmp file")
+    logging.info("convert bitflip.png to greyscale BMP and display")
     epd.init_Fast()
-    Himage = Image.open(os.path.join(picdir, 'bitflip.bmp'))
-    epd.display_Fast(epd.getbuffer(Himage))
+    png_path = os.path.join(picdir, 'bitflip.png')
+    bmp_path = os.path.join(picdir, 'bitflip.bmp')
+    # Load PNG, convert to greyscale, resize, save as BMP
+    Himage = Image.open(png_path).convert('L')
+    Himage = Himage.resize((epd.width, epd.height))
+    Himage.save(bmp_path, format='BMP')
+    # Load the BMP and display
+    Himage_bmp = Image.open(bmp_path)
+    epd.display_Fast(epd.getbuffer(Himage_bmp))
     time.sleep(2)
     """     
         logging.info("Clear...")
