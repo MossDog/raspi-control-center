@@ -26,8 +26,14 @@ export async function POST(req: NextRequest) {
         // Ensure picDir exists
         await fs.mkdir(picDir, { recursive: true });
 
-        // Use sharp to convert to greyscale and PNG
-        await sharp(buffer)
+        // Use sharp to convert to greyscale and PNG, rotating if needed
+        let image = sharp(buffer);
+        const metadata = await image.metadata();
+        if (metadata.height && metadata.width && metadata.height > metadata.width) {
+            // Rotate 90 degrees counterclockwise if taller than wide
+            image = image.rotate(-90);
+        }
+        await image
             .greyscale()
             .toFormat("png")
             .toFile(pngPath);
