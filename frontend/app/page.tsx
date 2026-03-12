@@ -14,6 +14,9 @@ export default function Home() {
           <Link href="/stats" className="w-full">
             <Button className="w-full">Stats Page</Button>
           </Link>
+          <Link href="/image-display" className="w-full">
+            <Button className="w-full">E-Paper Image Upload</Button>
+          </Link>
         </nav>
 
       </main>
