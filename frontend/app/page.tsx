@@ -17,6 +17,9 @@ export default function Home() {
           <Link href="/image-display" className="w-full">
             <Button className="w-full">E-Paper Image Upload</Button>
           </Link>
+          <Link href="/sensor-data" className="w-full">
+            <Button className="w-full">Sensor Data</Button>
+          </Link>
         </nav>
 
       </main>
