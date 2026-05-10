@@ -1,5 +1,7 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function SensorDataPage() {
     const [data, setData] = useState<string>("Loading...");
@@ -39,9 +41,29 @@ export default function SensorDataPage() {
             {error ? (
                 <div className="text-red-500 max-w-full break-words text-center">{error}</div>
             ) : (
-                <div className="text-lg sm:text-xl bg-gray-100 p-4 rounded shadow whitespace-pre-line max-w-full break-words text-center">
-                    {data}
-                </div>
+                <Card className="w-full max-w-md">
+                    <CardHeader>
+                        <CardTitle>Sensor Data</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        {data === "Loading..." ? (
+                            <div className="text-center">Loading...</div>
+                        ) : (
+                            <div className="space-y-2">
+                                {data.split("|").map((item, idx) => {
+                                    const [label, ...rest] = item.split(":");
+                                    const value = rest.join(":").trim();
+                                    return (
+                                        <div key={idx} className="flex justify-between text-sm">
+                                            <span className="text-muted-foreground">{label.trim()}:</span>
+                                            <span className="text-foreground font-medium">{value}</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
             )}
         </div>
     );
